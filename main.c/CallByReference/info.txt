@@ -1,0 +1,54 @@
+CALL BY REFERENCE:
+    - FONKSIYONA DEGISKENIN ADRESI GONDERILIR
+    - FONKSIYON, DEGISKENIN KENDISI UZERINE ISLEM YAPAR
+    - ORJINAL DEGISKENIN DEGERI DEGISIR*/
+
+NASIL CALISIR?
+    1) DEGISKEN ADRESI GONDERILIR:
+    - Bir degiskenin adresi & operatörü ile elde edilir ve fonksiyona parametre olarak gecer.
+    - örn sum2(&x, &y)
+    2) POINTER ILE ISLEM YAPILIR
+    - Fonksiyonda parametre olarak bir pointer (int *) kullanilir
+    - Pointer, verilen adresi takip ederek orjinal degiskeni degistirebilir.
+    
+    
+    
+    //*** Call by Reference Ne Zaman Kullanılır? ***\\
+
+- Orijinal Değişkeni Değiştirmek İstediğinizde:
+        Örneğin, bir sayıyı artırmak veya iki sayıyı değiştirmek gibi işlemlerde.
+
+- Büyük Veri Yapıları ile Çalışırken:
+        Büyük bir diziyi veya yapıyı kopyalamak yerine adresi göndermek,
+     bellek kullanımını ve işlem süresini azaltır.
+
+- Birden Fazla Değeri Döndürmek Gerektiğinde:
+        C dilinde bir fonksiyon sadece bir değer döndürebilir. 
+    Ancak, Call by Reference ile birden fazla değişkeni fonksiyon içinde değiştirebilirsiniz.
+
+   
+   
+    
+    
+    //*** Call by Reference Avantajları ve Dezavantajları ***\\
+    
+ Avantajları:
+    1. Bellek Kullanımı Azaltılır:
+        Büyük veriler kopyalanmadığı için bellekten tasarruf edilir.
+    2. Orijinal Değişken Üzerinde İşlem:
+        Değişiklikler doğrudan orijinal değişken üzerinde yapılabilir.
+    3. Çoklu Değer Döndürme:
+        Birden fazla değişkeni değiştirebilir.
+
+Dezavantajları:
+    1. Hata Riski:
+        Yanlış adresler geçirilirse, programda beklenmeyen sonuçlar veya çökme olabilir.
+    2. Okunabilirlik Azalabilir:
+        Adresler ve pointer kullanımı, kodun daha karmaşık görünmesine neden olabilir.
+
+
+
+Sonuç
+    + Call by Reference, programlama esnasında değişkenlerin orijinal değerlerini değiştirmek istediğinizde çok kullanışlıdır.
+    + Diziler ve büyük veri yapıları ile çalışırken performans avantajı sağlar.
+    + Pointer kullanımı ve adres işlemleri tam anlaşıldığında daha etkili bir şekilde kullanılabilir.

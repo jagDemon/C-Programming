@@ -1,0 +1,114 @@
+DIZILERDE NEDEN POINTER KULLANMAYIZ?
+
+C'de dizilerle çalışırken genellikle pointer kullanmak zorunda kalmayız, 
+çünkü diziler zaten kendilerini bir pointer gibi davranarak temsil eder.
+Dizinin adı, dizinin ilk elemanının adresini tutan bir pointer'dır. 
+Bu nedenle, fonksiyonlara dizi geçirirken açıkça bir pointer kullanmamıza gerek kalmaz. 
+
+Diziler ve Pointer İlişkisi
+
+    Dizinin adı (arr), dizinin ilk elemanının adresini (&arr[0]) temsil eder.
+
+    Örneğin:
+
+int arr[5] = {1, 2, 3, 4, 5};
+printf("arr: %p\n", arr);       // arr bir pointer gibi davranır (ilk elemanın adresi)
+printf("&arr[0]: %p\n", &arr[0]); // İlk elemanın adresi
+
+Çıktı:
+arr: 0x7ffed92c6abc
+&arr[0]: 0x7ffed92c6abc
+
+    Gördüğünüz gibi, arr ve &arr[0] aynı adresi tutar.
+
+
+
+Fonksiyonlara Dizi Geçirmek
+
+    Bir diziyi bir fonksiyona geçtiğinizde, aslında dizinin bir kopyasını değil, adresini geçirirsiniz.
+    Bu nedenle, dizi elemanları üzerinde yapılan değişiklikler doğrudan orijinal diziyi etkiler.
+
+Örnek:
+
+#include <stdio.h>
+
+void modifyArray(int arr[], int size) {
+    arr[0] = 100;  // Dizinin ilk elemanını değiştiriyoruz
+}
+
+int main() {
+    int nums[3] = {1, 2, 3};
+
+    printf("Degistirmeden once: %d\n", nums[0]);  // İlk eleman: 1
+    modifyArray(nums, 3);  // Diziyi fonksiyona geçiriyoruz
+    printf("Degistirdikten sonra: %d\n", nums[0]);  // İlk eleman değişir: 100
+
+    return 0;
+}
+
+Çıktı:
+
+Degistirmeden once: 1
+Degistirdikten sonra: 100
+
+
+
+Neden Pointer Kullanmıyoruz?
+
+Fonksiyonun parametresinde int arr[] ile çalışmak, pointer kullanımıyla aynı anlama gelir. C'de int arr[] ve int *arr eşdeğerdir.
+1. Pointer ile Aynı İşlevi Görüyor:
+
+void modifyArray(int *arr, int size) {
+    arr[0] = 100;  // İlk elemanı değiştir
+}
+
+Bu tanım, diziyi pointer olarak geçirmenin eşdeğeridir. Dolayısıyla, int arr[] veya int *arr kullanabilirsiniz. Her iki durumda da dizinin adresi geçilir.
+2. Daha Okunabilir Bir Sözdizimi Sağlar:
+
+    Diziler üzerinde çalışırken int arr[] kullanımı, kodu daha açık ve anlaşılır hale getirir.
+    int *arr yerine int arr[] yazmak, bu parametrenin bir dizi olduğunu ifade etmek için tercih edilir.
+
+Örnek:
+
+void printArray(int arr[], int size) {  // Okuması daha kolay
+    for (int i = 0; i < size; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
+}
+
+Pointer Kullanımına Ne Zaman İhtiyaç Duyarız?
+
+    Belirli Bir Elemanın Adresine İşaret Etmek:
+        Eğer dizi elemanlarının adresiyle işlem yapmak istiyorsanız, açıkça pointer kullanabilirsiniz:
+
+    int nums[] = {1, 2, 3};
+    int *p = &nums[0];  // İlk elemana işaret eden bir pointer
+    printf("Ilk eleman: %d\n", *p);  // Dereference ederek değeri yazdırır
+
+Dinamik Bellek Ayırımı:
+
+    Dinamik bellek ile çalışırken pointer kullanımı gereklidir (örneğin malloc ile bir dizi oluşturmak):
+
+    int *arr = (int *)malloc(5 * sizeof(int));  // Dinamik bir dizi
+    arr[0] = 10;  // İlk elemanı atama
+    free(arr);    // Belleği serbest bırak
+
+Çok Boyutlu Diziler:
+
+    Çok boyutlu dizilerde pointer kullanımı daha yaygındır:
+
+        void printMatrix(int (*matrix)[3], int rows) {
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < 3; j++) {
+                    printf("%d ", matrix[i][j]);
+                }
+                printf("\n");
+            }
+        }
+
+Sonuç:
+
+    Dizilerle pointer kullanmamamızın temel nedeni, dizilerin zaten adres gibi davranmasıdır.
+    int arr[] ve int *arr eşdeğer olsa da, int arr[] kullanımı kodun amacını daha açık bir şekilde ifade eder.
+    Pointer kullanımına yalnızca dinamik bellek veya ileri düzey bellek işlemleri gerektiğinde ihtiyaç duyarız.

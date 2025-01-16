@@ -1,0 +1,124 @@
+// A. PROGRAM YAPILANDIRMASI
+
+// 1) Fonksiyon Protitipleri nedir ve neden gerklidir? Örnek bir Fonksiyon Protitipi yazin.
+/*
+Fonksiyon Protitipi, bir fonksiyonun adi, dönüs türü ve parametre bilgilerini tanimlar. Derleyiciye, fonksiyonun nasil kullanilacagini söyler.
+Protitip, genellikle fonksiyon tanimindan önce yazilir.
+*/
+// BSP
+int toplam(int, int);
+int main()
+{
+    int sonuc = toplama(5, 10);
+    printf("Sonuc: %d\n", sonuc);
+    return 0;
+}
+int toplama(int a, int b)
+{
+    return a + b;
+}
+
+// 2) Header dosyalari hangi amacla kullanilir?
+/*
+- Fonksiyon prototipleri,
+- Sabitleri (#define),
+- Makrolari ve
+- Veri türlerini icerir. Bu, kodun modüler ve tekrar kullanilabilir olmasini saglar.
+*/
+
+// 3) Programlari modüler hale getirmek neden önemlidir?
+/*Okunurlugu arttirma, hata ayiklamayi kolaylastirma ve tekrar kullanilir olmasindan dolayi.*/
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// B. DEGISKENLERIN KAPSAMI
+
+// 4) Global degisken ve lokal degisken arasindaki fark nedir?
+/*
+Global Degisken: Programin herhangi bir yerinden ersilebilir. Fonksiyon disinda tanimlanir.
+Lokal Degisken: Yalnizca tanimlandigi fonksiyon veya blok icinde erisilebilir.
+*/
+// BSP
+int globalVar = 10; // Global degisken
+void func()
+{
+    int localVar = 5; // Lokal degisken
+}
+
+// 5) Lokal ve global degisken ayni ada sahipse ne olur?
+/* Lokal degiskeni, global degiskeni gölgeler. (shadow). Kod, lokal degiskeni kullanir.*/
+int x = 10; // Global degisken
+void func()
+{
+    int x = 20;
+    printf("%d\n", x); // Cikti: 20
+}
+
+// 6) Bir global degiskene bir fonksiyon icinden nasil erisirsiniz.
+/* Global degisken, dogrudan adini kullanarak erisilebilir.
+ */
+// BSP
+int globalVar = 10;
+void func()
+{
+    globalVar += 5;
+    printf("%d\n", globalVar);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// C. STATIK VE OTOMATIK DEGISKENLER
+
+// 7-8) Otomatik ve Statik degiskenler nedir?
+/*Otomatik degiskenler: Varsayilan olarak tanimlanan ve fonksiyon/blok bittiginde bellegi serbest birakilan degiskenlerdir.
+ */
+// BSP
+void func()
+{
+    int x = 10; // Otomatik degisken
+}
+
+/* Statik Degiskenler: */ static /*anahtar kelimesiyle tnaimlanir. Bellek ömrü boyunca devam eder*/
+    // BSP
+    void
+    counter()
+{
+    static int count = 0; //Static bir degiskenin baslangic degeri verilmezse varsayilan 0 olarak atanir.
+    count++;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// D. MODÜLER PROGRAMLARMA
+
+10) maths.utils.h
+#ifndef MATH_UTILS_H
+#define MATH_UTILS_H
+int fac(int n);
+#endif
+
+11) max ve min fonksiyonlari
+//header dosyasi
+#ifndef UTILS_H
+#define UTILS_H
+int min(int a, int b);
+int max(int a, int b);
+#endif
+// source code
+#include "utils.h"
+int min(int a, int b){ return (a < b) ? a : b}
+int max(int a, int b){ return (a > b) ? a : b}
+
+12) Static Function nedir?
+/*static func yalnizca tanimlandigi dosyada erisilir durumda*/
+static void helper(){
+    printf("Bu bir static func.");
+}
+
+13) Lokal ve global degisken ayni isimde olursa lokal degisken kullanilir.
+
+14) Statik degiskenin degeri nasil korunur
+void counter(){
+    static int count = 0; // deger korunur
+    count++;
+}
