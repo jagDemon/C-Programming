@@ -14,7 +14,7 @@ int full()
     return top == N;
 }
 
-int pop()
+int pop() //
 {
     if (!empty())
     {
